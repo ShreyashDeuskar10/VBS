@@ -10,4 +10,8 @@ import lombok.NoArgsConstructor;
 public class DisplayDto {
     String username;
     double balance;
+    String bankName;
+    String accountNumber;
+    String ifscCode;
+    String branch;
 }

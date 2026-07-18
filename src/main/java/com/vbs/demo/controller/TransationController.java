@@ -85,12 +85,12 @@ public class TransationController {
 
         t1.setAmount(obj.getAmount());
         t1.setCurrBalance(sbalance);
-        t1.setDescription("Rs" + obj.getAmount() + "sent to user" + rec.getUsername() );
+        t1.setDescription("Rs " + obj.getAmount() + " sent to user " + rec.getUsername());
         t1.setUserId(sender.getId());
 
         t2.setAmount(obj.getAmount());
         t2.setCurrBalance(rbalance);
-        t2.setDescription("Rs" + obj.getAmount() + "Received from user" + rec.getUsername() );
+        t2.setDescription("Rs " + obj.getAmount() + " Received from user " + sender.getUsername());
         t2.setUserId(rec.getId());
 
         transactionRepo.save(t1);

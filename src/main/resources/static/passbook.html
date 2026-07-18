@@ -4,155 +4,304 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Passbook - Virtual Banking System</title>
-
+  <!-- Import Modern Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-
-    body{
-        font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-        background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-        min-height:100vh;
-        padding:20px
+    :root {
+        --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        --dark-bg: #0f172a;
+        --card-bg: rgba(30, 41, 59, 0.7);
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        --success-color: #10b981;
+        --danger-color: #f43f5e;
+        --info-color: #0ea5e9;
     }
 
-    .container{
-        max-width:1000px;
-        margin:auto;
-        background:#fff;
-        border-radius:16px;
-        box-shadow:0 20px 60px rgba(0,0,0,.3);
-        overflow:hidden
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 
-    .header{
-        background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
-        padding:30px;
-        color:#fff;
-        display:flex;
-        justify-content:space-between;
-        align-items:center
+    body {
+        font-family: 'Outfit', sans-serif;
+        background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 40%),
+                    var(--dark-bg);
+        min-height: 100vh;
+        color: var(--text-main);
+        padding: 30px 20px;
     }
 
-    .header-left h1{font-size:28px}
-    .header-left p{font-size:14px;opacity:.9}
-
-    .btn-header{
-        padding:10px 20px;
-        border:2px solid #fff;
-        background:rgba(255,255,255,.2);
-        color:#fff;
-        border-radius:8px;
-        cursor:pointer;
-        font-weight:600;
-        text-decoration:none;
-        transition:.3s
+    .container {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border-color);
+        border-radius: 24px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
     }
 
-    .btn-header:hover{background:#fff;color:#667eea}
-
-    .content{padding:40px 30px}
-
-    .passbook-header{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin-bottom:30px
-    }
-
-    .balance-card{
-        background:linear-gradient(135deg,#667eea,#764ba2);
-        color:#fff;
-        padding:20px 30px;
-        border-radius:10px
-    }
-
-    .balance-card .amount{font-size:28px;font-weight:700}
-
-    .transactions-section{
-        background:#f8f9fa;
-        padding:30px;
-        border-radius:12px
-    }
-
-    .transactions-list{display:flex;flex-direction:column;gap:10px}
-
-    .transaction-item{
-        background:#fff;
-        padding:18px;
-        border-radius:10px;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        border-left:5px solid #667eea;
-        box-shadow:0 2px 8px rgba(0,0,0,.05)
-    }
-
-    .transaction-item.deposit{border-left-color:#43e97b}
-    .transaction-item.withdrawal{border-left-color:#f5576c}
-    .transaction-item.transfer{border-left-color:#4facfe}
-
-    .transaction-info{display:flex;gap:15px;align-items:center}
-
-    .transaction-icon{
-        width:45px;height:45px;
-        border-radius:50%;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        font-size:22px
-    }
-
-    .deposit .transaction-icon{background:#d4f8e8;color:#43e97b}
-    .withdrawal .transaction-icon{background:#fde0e5;color:#f5576c}
-    .transfer .transaction-icon{background:#d4e7ff;color:#4facfe}
-
-    .transaction-details .type{font-weight:600;color:#333}
-    .transaction-details .date{font-size:12px;color:#999}
-
-    .transaction-right{text-align:right}
-
-    .transaction-amount{font-size:16px;font-weight:700}
-    .deposit .transaction-amount{color:#43e97b}
-    .withdrawal .transaction-amount{color:#f5576c}
-    .transfer .transaction-amount{color:#4facfe}
-
-    .balance-display{font-size:12px;color:#999}
-
-    .pagination{
-        margin-top:20px;
-        display:flex;
-        justify-content:center;
-        gap:10px
-    }
-
-    .pagination button{
-        padding:8px 12px;
-        border:1px solid #ddd;
-        border-radius:6px;
-        cursor:pointer
-    }
-
-    .pagination .active{
-        background:#667eea;
-        color:#fff;
-        border-color:#667eea
-    }
-    .header > div {
+    .header {
+        background: rgba(15, 23, 42, 0.4);
+        padding: 25px 40px;
         display: flex;
-        gap: 10px;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border-color);
     }
 
-    .btn-header{
-        min-width: 130px;
-        height: 42px;
-        display: inline-flex;
+    .header-left h1 {
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    .header-buttons {
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn-header {
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        text-decoration: none;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .btn-header:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: white;
+    }
+
+    .content {
+        padding: 40px;
+    }
+
+    .passbook-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 35px;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .passbook-header h2 {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+
+    .balance-card {
+        background: var(--primary-gradient);
+        color: white;
+        padding: 18px 30px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+        text-align: center;
+    }
+
+    .balance-card p {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.8;
+        margin-bottom: 4px;
+    }
+
+    .balance-card .amount {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .transactions-section {
+        background: rgba(15, 23, 42, 0.2);
+        border: 1px solid var(--border-color);
+        padding: 30px;
+        border-radius: 20px;
+    }
+
+    .transactions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .transaction-item {
+        background: rgba(15, 23, 42, 0.4);
+        border: 1px solid var(--border-color);
+        padding: 18px;
+        border-radius: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: var(--transition);
+    }
+
+    .transaction-item:hover {
+        transform: translateX(4px);
+        background: rgba(15, 23, 42, 0.6);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .transaction-info {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .transaction-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
 
+    .deposit .transaction-icon {
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+    }
 
-    .message{display:none;margin-bottom:20px}
-    .message.show{display:block}
+    .withdrawal .transaction-icon {
+        background: rgba(244, 63, 94, 0.15);
+        color: #f43f5e;
+        border: 1px solid rgba(244, 63, 94, 0.2);
+    }
+
+    .transfer .transaction-icon {
+        background: rgba(14, 165, 233, 0.15);
+        color: #0ea5e9;
+        border: 1px solid rgba(14, 165, 233, 0.2);
+    }
+
+    .transaction-details .type {
+        font-weight: 600;
+        color: white;
+        font-size: 14px;
+    }
+
+    .transaction-details .date {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 3px;
+    }
+
+    .transaction-right {
+        text-align: right;
+    }
+
+    .transaction-amount {
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+
+    .deposit .transaction-amount {
+        color: var(--success-color);
+    }
+
+    .withdrawal .transaction-amount {
+        color: var(--danger-color);
+    }
+
+    .transfer .transaction-amount.credit {
+        color: var(--success-color);
+    }
+
+    .transfer .transaction-amount.debit {
+        color: var(--danger-color);
+    }
+
+    .balance-display {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 3px;
+    }
+
+    .pagination {
+        margin-top: 25px;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .pagination button {
+        padding: 8px 14px;
+        border: 1px solid var(--border-color);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-muted);
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .pagination button.active {
+        background: var(--primary-gradient);
+        color: white;
+        border-color: transparent;
+    }
+
+    .pagination button:hover:not(.active) {
+        border-color: white;
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .empty-state {
+        text-align: center;
+        color: var(--text-muted);
+        padding: 40px 20px;
+    }
+
+    @media (max-width: 600px) {
+        .header {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .passbook-header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .transaction-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .transaction-right {
+            text-align: left;
+            padding-left: 60px;
+        }
+    }
   </style>
 </head>
 
@@ -163,8 +312,8 @@
     <div class="header-left">
       <h1>VBS</h1>
     </div>
-    <div>
-      <a id="dashLink" class="btn-header">← Dashboard</a>
+    <div class="header-buttons">
+      <a onclick="goBack()" class="btn-header">← Back</a>
       <button class="btn-header" onclick="logout()">Logout</button>
     </div>
   </div>
@@ -180,7 +329,9 @@
     </div>
 
     <div class="transactions-section">
-      <div id="transactionsList" class="transactions-list"></div>
+      <div id="transactionsList" class="transactions-list">
+        <div class="empty-state">Loading transactions...</div>
+      </div>
       <div id="paginationControls" class="pagination"></div>
     </div>
 
@@ -199,21 +350,40 @@
       userId = p.get('id');
       role = p.get('role') || 'customer';
       if(!userId) location.href='login.html';
-      document.getElementById('dashLink').href =
-          `dashboard.html?id=${userId}&role=${encodeURIComponent(role)}`;
+  }
+
+  function goBack() {
+      const storedRole = localStorage.getItem("role") || role;
+      const storedUserId = localStorage.getItem("userId") || userId;
+      if (storedRole === "admin") {
+          window.location.href = `admin.html?id=${storedUserId}&role=admin`;
+      } else {
+          window.location.href = `dashboard.html?id=${userId}&role=${encodeURIComponent(role)}`;
+      }
   }
 
   async function loadPassbook(){
-      const r = await fetch(`${API_URL}/passbook/${userId}`);
-      transactions = await r.json();
-      if(transactions.length)
-          document.getElementById('currentBalance').textContent =
-              transactions[transactions.length-1].currBalance.toFixed(2);
-      render();
+      try {
+          const r = await fetch(`${API_URL}/passbook/${userId}`);
+          transactions = await r.json();
+          if(transactions.length) {
+              document.getElementById('currentBalance').textContent =
+                  transactions[transactions.length-1].currBalance.toLocaleString('en-IN', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                  });
+          }
+          render();
+      } catch (err) {
+          console.error(err);
+          document.getElementById('transactionsList').innerHTML = `
+              <div class="empty-state">Error loading transactions. Make sure server is running.</div>
+          `;
+      }
   }
 
-  function getType(d){
-      d=d.toLowerCase();
+  function getType(desc){
+      const d = desc.toLowerCase();
       if(d.includes('deposit')) return 'deposit';
       if(d.includes('withdrawal')) return 'withdrawal';
       return 'transfer';
@@ -223,19 +393,36 @@
       const list = document.getElementById('transactionsList');
       const pag = document.getElementById('paginationControls');
 
-      const sorted=[...transactions].sort((a,b)=>new Date(b.date)-new Date(a.date));
-      const totalPages=Math.ceil(sorted.length/itemsPerPage);
-      const slice=sorted.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage);
+      if(transactions.length === 0) {
+          list.innerHTML = `
+              <div class="empty-state">
+                  <div style="font-size: 32px; margin-bottom: 10px;">📭</div>
+                  <div>No transactions recorded yet.</div>
+              </div>
+          `;
+          pag.innerHTML = '';
+          return;
+      }
 
-      list.innerHTML=slice.map(t=>{
+      const sorted = [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date));
+      const totalPages = Math.ceil(sorted.length / itemsPerPage);
+      const slice = sorted.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage);
+
+      list.innerHTML = slice.map(t => {
           const type = getType(t.description);
 
           let sign = '-';
-          if(type === 'deposit') sign = '+';
-          else if(type === 'transfer' && t.description.toLowerCase().includes('received'))
+          let signClass = 'debit';
+          if(type === 'deposit') {
               sign = '+';
+              signClass = 'credit';
+          }
+          else if(type === 'transfer' && t.description.toLowerCase().includes('received')) {
+              sign = '+';
+              signClass = 'credit';
+          }
 
-          const icon = type==='deposit'?'📥':type==='withdrawal'?'💸':'🔁';
+          const icon = type==='deposit' ? '📥' : type==='withdrawal' ? '💸' : '🔁';
 
           return `
           <div class="transaction-item ${type}">
@@ -247,22 +434,37 @@
                   </div>
               </div>
               <div class="transaction-right">
-                  <div class="transaction-amount">${sign}₹${t.amount.toFixed(2)}</div>
-                  <div class="balance-display">Balance ₹${t.currBalance.toFixed(2)}</div>
+                  <div class="transaction-amount ${signClass}">${sign}₹${t.amount.toLocaleString('en-IN', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                  })}</div>
+                  <div class="balance-display">Balance ₹${t.currBalance.toLocaleString('en-IN', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2
+                  })}</div>
               </div>
           </div>`;
       }).join('');
 
-      pag.innerHTML='';
-      for(let i=1;i<=totalPages;i++){
-          pag.innerHTML+=`<button class="${i===currentPage?'active':''}" onclick="go(${i})">${i}</button>`;
+      pag.innerHTML = '';
+      if(totalPages > 1) {
+          for(let i=1; i<=totalPages; i++){
+              pag.innerHTML += `<button class="${i===currentPage ? 'active' : ''}" onclick="go(${i})">${i}</button>`;
+          }
       }
   }
 
-  function go(p){currentPage=p;render()}
-  function logout(){location.href='home.html'}
+  function go(p){
+      currentPage = p;
+      render();
+  }
 
-  window.onload=()=>{
+  function logout(){
+      localStorage.clear();
+      location.href='home.html';
+  }
+
+  window.onload = () => {
       getUserIdFromURL();
       loadPassbook();
   }

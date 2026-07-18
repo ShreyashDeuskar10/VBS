@@ -4,86 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Virtual Banking System - Login</title>
-
+  <!-- Import Modern Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* ================= THEME VARIABLES ================= */
     :root {
-        --overlay: rgba(235, 245, 238, 0.88);
-        --card-bg: #ffffff;
-        --primary: #2f9e6f;
-        --secondary: #4fb286;
-        --text-main: #1f2933;
-        --text-muted: #6b7280;
-        --border: #cde7d8;
-        --input-bg: #f5fbf8;
-        --success-bg: #d1fae5;
-        --success-text: #065f46;
-        --error-bg: #fde2e2;
-        --error-text: #991b1b;
+        --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        --dark-bg: #0f172a;
+        --card-bg: rgba(30, 41, 59, 0.7);
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --input-bg: rgba(15, 23, 42, 0.6);
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* ================= RESET ================= */
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
 
-    /* ================= BACKGROUND ================= */
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Outfit', sans-serif;
+        background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.15) 0%, transparent 40%),
+                    var(--dark-bg);
         min-height: 100vh;
-        background:
-            linear-gradient(var(--overlay), var(--overlay)),
-            url("https://images.unsplash.com/photo-1601597111158-2fceff292cdc");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        color: var(--text-main);
+        padding: 20px;
     }
 
-    /* ================= CARD ================= */
     .container {
         width: 90%;
         max-width: 450px;
         background: var(--card-bg);
-        border-radius: 16px;
-        box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border-color);
+        border-radius: 24px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         overflow: hidden;
+        transition: var(--transition);
     }
 
-    /* ================= HEADER ================= */
+    .container:hover {
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+
     .header {
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        padding: 28px;
+        background: var(--primary-gradient);
+        padding: 30px;
         text-align: center;
         color: white;
     }
 
     .header h1 {
         font-size: 30px;
-        margin-bottom: 4px;
+        font-weight: 800;
+        letter-spacing: -1px;
     }
 
     .header p {
-        font-size: 14px;
-        opacity: 0.95;
+        font-size: 13px;
+        opacity: 0.85;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-top: 4px;
     }
 
-    /* ================= CONTENT ================= */
     .content {
-        padding: 38px 32px;
+        padding: 40px 30px;
     }
 
     h2 {
-        color: var(--text-main);
-        margin-bottom: 26px;
+        color: white;
+        margin-bottom: 25px;
         text-align: center;
+        font-size: 24px;
+        font-weight: 700;
     }
 
-    /* ================= FORM ================= */
     .form-group {
         margin-bottom: 20px;
     }
@@ -99,75 +104,87 @@
     .form-group input,
     .form-group select {
         width: 100%;
-        padding: 12px 14px;
+        padding: 12px 15px;
+        border: 1px solid var(--border-color);
         background: var(--input-bg);
-        border: 1.5px solid var(--border);
-        border-radius: 8px;
+        border-radius: 12px;
         font-size: 14px;
-        color: var(--text-main);
+        color: white;
+        transition: var(--transition);
+        font-family: inherit;
+    }
+
+    .form-group select option {
+        background: var(--dark-bg);
+        color: white;
     }
 
     .form-group input:focus,
     .form-group select:focus {
         outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 2px rgba(47,158,111,0.2);
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        background: rgba(15, 23, 42, 0.8);
     }
 
-    /* ================= BUTTON ================= */
     .btn {
         width: 100%;
         padding: 14px;
         border: none;
-        border-radius: 8px;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        color: white;
+        border-radius: 12px;
         font-size: 16px;
-        font-weight: 600;
         cursor: pointer;
+        transition: var(--transition);
+        font-weight: 600;
+        background: var(--primary-gradient);
+        color: white;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+        margin-top: 10px;
     }
 
     .btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 8px 22px rgba(47,158,111,0.35);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
     }
 
-    /* ================= LINKS ================= */
     .link {
         text-align: center;
-        margin-top: 18px;
+        margin-top: 20px;
         color: var(--text-muted);
         font-size: 14px;
     }
 
     .link a {
-        color: var(--primary);
+        color: #818cf8;
         text-decoration: none;
         font-weight: 600;
         cursor: pointer;
+        transition: var(--transition);
     }
 
     .link a:hover {
+        color: #a5b4fc;
         text-decoration: underline;
     }
 
-    /* ================= MESSAGE ================= */
     .message {
         padding: 12px;
-        border-radius: 8px;
-        margin-bottom: 18px;
+        border-radius: 12px;
+        margin-bottom: 20px;
         font-size: 14px;
         display: none;
     }
 
     .message.success {
-        background: var(--success-bg);
-        color: var(--success-text);
+        background: rgba(16, 185, 129, 0.15);
+        color: #34d399;
+        border: 1px solid rgba(16, 185, 129, 0.25);
     }
 
     .message.error {
-        background: var(--error-bg);
-        color: var(--error-text);
+        background: rgba(239, 68, 68, 0.15);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.25);
     }
 
     .message.show {
@@ -175,9 +192,7 @@
     }
   </style>
 </head>
-
 <body>
-
 <div class="container">
   <div class="header">
     <h1>VBS</h1>
@@ -185,19 +200,19 @@
   </div>
 
   <div class="content">
-    <h2>Login</h2>
+    <h2>Secure Login</h2>
 
     <div id="loginMessage" class="message"></div>
 
     <form id="loginForm">
       <div class="form-group">
         <label>Username</label>
-        <input type="text" id="loginUsername" required>
+        <input type="text" id="loginUsername" required placeholder="Enter your username">
       </div>
 
       <div class="form-group">
         <label>Password</label>
-        <input type="password" id="loginPassword" required>
+        <input type="password" id="loginPassword" required placeholder="Enter your password">
       </div>
 
       <div class="form-group">
@@ -213,11 +228,9 @@
     </form>
 
     <div class="link">
-      Don't have an account?
-      <a onclick="window.location.href='signup.html'">Sign Up</a>
+      Don't have an account? <a onclick="window.location.href='signup.html'">Sign Up</a>
     </div>
-
-    <div class="link">
+    <div class="link" style="margin-top: 10px;">
       <a onclick="window.location.href='home.html'">← Back to Home</a>
     </div>
   </div>
@@ -226,25 +239,27 @@
 <script>
   const API_URL = 'http://localhost:8081';
 
-  function showMessage(id, msg, type) {
-      const el = document.getElementById(id);
-      el.textContent = msg;
-      el.className = `message ${type} show`;
+  function showMessage(elementId, message, type) {
+      const messageEl = document.getElementById(elementId);
+      messageEl.textContent = message;
+      messageEl.className = `message ${type} show`;
   }
 
   document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const loginData = {
-          username: loginUsername.value,
-          password: loginPassword.value,
-          role: loginRole.value
+          username: document.getElementById('loginUsername').value,
+          password: document.getElementById('loginPassword').value,
+          role: document.getElementById('loginRole').value
       };
 
       try {
           const response = await fetch(`${API_URL}/login`, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: {
+                  'Content-Type': 'application/json',
+              },
               body: JSON.stringify(loginData)
           });
 
@@ -255,21 +270,24 @@
 
               localStorage.clear();
               localStorage.setItem("userId", result);
-              localStorage.setItem("role", loginData.role.toLowerCase());
+
+              const role = loginData.role.trim().toLowerCase();
+              localStorage.setItem("role", role);
 
               setTimeout(() => {
-                  if (loginData.role === "admin") {
+                  if (role === "admin") {
                       window.location.href = `admin.html?id=${result}`;
                   } else {
                       window.location.href = `dashboard.html?id=${result}`;
                   }
               }, 800);
+
           } else {
               showMessage('loginMessage', result, 'error');
           }
-      } catch (err) {
-          showMessage('loginMessage', 'Server error. Please try again.', 'error');
-          console.error(err);
+      } catch (error) {
+          showMessage('loginMessage', 'Error connecting to server. Please try again.', 'error');
+          console.error('Login error:', error);
       }
   });
 </script>
